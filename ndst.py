@@ -1,11 +1,13 @@
 import sys
 from subprocess import run
 import subprocess
-cpu  = run("lscpu", shell=True, stdout=subprocess.PIPE).stdout.decode('utf-8').split('\n')
-cpu = (cpu[2] + '\n' + cpu[15] + '\n' + cpu[16] + '\n' + cpu[17] + '\n' + cpu[19] + '\n' + cpu[20] + '\n' + cpu[21] + '\n' + cpu[22] + '\n' + cpu[23] + '\n')[:-1]
+def shexec(x):
+      return run(x, shell=True, stdout=subprocess.PIPE).stdout.decode('utf-8')
 
+cpu  = shexec("lscpu").split('\n')
+cpu = (cpu[2] + '\n' + cpu[15] + '\n' + cpu[16] + '\n' + cpu[17] + '\n' + cpu[19] + '\n' + cpu[20] + '\n' + cpu[21] + '\n' + cpu[22] + '\n' + cpu[23] + '\n')[:-1]
 #NEOBEGIN
-neo = run("neofetch --gtk2 off --gtk3 off --refresh_rate on --disable wm de --cpu_cores physical --stdout --memory_percent on", shell=True, stdout=subprocess.PIPE).stdout.decode('utf-8')[:-2].split('\n')
+neo = shexec("neofetch --gtk2 off --gtk3 off --refresh_rate on --disable wm de --cpu_cores physical --stdout --memory_percent on")[:-2].split('\n')
 print(neo[0]  + '\n' +  neo[1])
 neolist = []
 for iterator in range(0,len(neo)):
@@ -23,10 +25,10 @@ for iterator in range(0,len(neolist),2):
       div = ':'.ljust(width - len(line))
       print(neolist[iterator] + div + neolist[iterator+1])
 #NEOEND
-disk = run('df -hl', shell=True, stdout=subprocess.PIPE).stdout.decode('utf-8')
-date = run('date', shell=True, stdout=subprocess.PIPE).stdout.decode('utf-8')
+disk = shexec('df -hl')
+date = shexec('date')
 #USBBEGIN
-usb = run("lsusb", shell=True, stdout=subprocess.PIPE).stdout.decode('utf-8')[:-1].split('\n')
+usb = shexec("lsusb")[:-1].split('\n')
 x = 0
 no_id = ''
 while(x<int(len(usb))-1):
