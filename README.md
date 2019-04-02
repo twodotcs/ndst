@@ -8,6 +8,6 @@ ll you need is:
 - lsusb (usb)
 - lscpu (cpu)
 - df (all disk usage)  
-Sensors and stuff coming soon, when I can figure out how to parse them...  
+- Sensors and stuff coming soon, when I can figure out how to parse them...  
 ## why python?
 I don't know bash. Rewrite it yourself if you want to.
