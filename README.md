@@ -7,7 +7,7 @@ ll you need is:
 ## Features
 - lsusb (usb)
 - lscpu (cpu)
-- df (all disk usage)
+- df (all disk usage)  
 Sensors and stuff coming soon, when I can figure out how to parse them...  
 ## why python?
 I don't know bash. Rewrite it yourself if you want to.
