@@ -1,5 +1,5 @@
 # NDST (ndt-stat)  
-<img src="https://github.com/twodotcs/nstat/raw/master/ndst.png"></br>  
+<img src="https://github.com/twodotcs/ndst/raw/master/ndst.png"></br>  
 A script to get detailed system info.  
 ll you need is:  
 - python (>=3.5.2, lower might work)
