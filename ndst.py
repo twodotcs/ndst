@@ -54,27 +54,35 @@ cpu  = shexec("lscpu").split('\n')
 cpu = (cpu[2] + '\n' + cpu[15] + '\n' + cpu[16] + '\n' + cpu[17] + '\n' + cpu[19] + '\n')
 disk = shexec('df -hl')
 date = shexec('date')
-payload_nocut = cpu + 'Date: ' + date + 'Disk Usage: \n' + disk + 'USB Devices: \n' + usb_nocut()
 try:
       if sys.argv[1] == '--no-cut':
+            print('--nocut mode active')
             f = io.StringIO()
             with redirect_stdout(f):
                   neo_nocut()
             x = f.getvalue()
-            payload = x +  payload_nocut
+            payload = x + cpu + 'Date: ' + date + 'Disk Usage: \n' + disk + 'USB Devices: \n' + usb_nocut()
             print(payload)
             term = input('log to dpaste? (requires cURL)')
             if term == 'yes':
                   x = shexec("curl -s -F \"content=" + payload + '\" http://dpaste.com/api/v2/')
                   print("URL: " + x)
+      if sys.argv[1] == '--no-neo':
+            payload = str(cpu) + '\nDate: ' + date + 'Disk Usage:\n' + disk + str(usb_cut())
+            print(payload)
       if sys.argv[1] == '--no-deps':
+            payload_nocut = cpu + 'Date: ' + date + 'Disk Usage: \n' + disk + 'USB Devices: \n' + usb_nocut()
             print(payload_nocut)
       elif sys.argv[1] == '--help':
             print('ndst - a tool to get system info. run with --no-deps for usage without neofetch or cut, or --no-cut for if you just dont have cut for some reason')
       else:
             print('invalid args')
 except IndexError:
-     payload = str(neo_cut())[:-4] + str(cpu) + '\nDate: ' + date + 'Disk Usage:\n' + disk + str(usb_cut())
+     f = io.StringIO()
+     with redirect_stdout(f):
+           neo_nocut()
+           x = f.getvalue()
+     payload = str(x) + str(cpu) + 'Date: ' + date + 'Disk Usage:\n' + disk + str(usb_cut())
      print(payload)
      term = input('log to dpaste? (requires cURL)')
      if term == 'yes':
